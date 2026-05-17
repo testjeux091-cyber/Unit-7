@@ -1,0 +1,514 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; }
+
+.u7 {
+  background: #090d12;
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+.u7::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,200,0.015) 2px, rgba(0,255,200,0.015) 4px);
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.u7-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid rgba(0,255,200,0.15);
+  margin-bottom: 12px;
+}
+
+.u7-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #00ffc8;
+  letter-spacing: 0.15em;
+}
+
+.u7-blink {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #00ffc8;
+  animation: blink 1.4s infinite;
+  flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.u7-badge {
+  margin-left: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(0,255,200,0.6);
+  letter-spacing: 0.08em;
+}
+
+.char-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.ctab {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+}
+.ctab:hover { border-color: rgba(0,255,200,0.3); color: rgba(0,255,200,0.7); }
+.ctab.on { border-color: #00ffc8; color: #00ffc8; background: rgba(0,255,200,0.06); }
+.ctab.suspect { border-color: rgba(255,80,60,0.3); color: rgba(255,80,60,0.5); }
+.ctab.suspect.on { border-color: #ff503c; color: #ff503c; background: rgba(255,80,60,0.06); }
+
+.screen {
+  border: 0.5px solid rgba(0,255,200,0.25);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen-head {
+  background: rgba(0,255,200,0.06);
+  border-bottom: 0.5px solid rgba(0,255,200,0.15);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.screen-id {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(0,255,200,0.5);
+  letter-spacing: 0.1em;
+}
+
+.screen-char {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.08em;
+}
+
+.screen-tags {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.stag {
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 2px 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stag-easy { background: rgba(0,200,100,0.15); color: #00c864; border: 0.5px solid rgba(0,200,100,0.25); }
+.stag-hard { background: rgba(255,80,60,0.15); color: #ff6b50; border: 0.5px solid rgba(255,80,60,0.25); }
+.stag-enig { background: rgba(100,120,255,0.15); color: #7b8fff; border: 0.5px solid rgba(100,120,255,0.25); }
+.stag-gage { background: rgba(255,180,0,0.15); color: #ffb400; border: 0.5px solid rgba(255,180,0,0.25); }
+.stag-q1 { background: rgba(50,150,255,0.15); color: #3296ff; border: 0.5px solid rgba(50,150,255,0.25); }
+.stag-q2 { background: rgba(0,200,100,0.12); color: #00c864; border: 0.5px solid rgba(0,200,100,0.2); }
+.stag-q3 { background: rgba(255,160,0,0.12); color: #ffa000; border: 0.5px solid rgba(255,160,0,0.2); }
+
+.screen-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.unit-speech {
+  border-left: 2px solid rgba(0,255,200,0.35);
+  padding: 10px 14px;
+  background: rgba(0,255,200,0.03);
+  border-radius: 0 6px 6px 0;
+}
+
+.unit-speech-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(0,255,200,0.5);
+  letter-spacing: 0.1em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.unit-speech-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  font-style: italic;
+  margin: 0;
+}
+
+.challenge-box {
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 14px;
+  background: rgba(255,255,255,0.02);
+}
+
+.challenge-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.challenge-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.75;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.challenge-text code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: #00ffc8;
+  background: rgba(0,255,200,0.08);
+  padding: 2px 7px;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 2px 0;
+}
+
+.screen-foot {
+  border-top: 0.5px solid rgba(0,255,200,0.1);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sol-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(0,255,200,0.5);
+  background: none;
+  border: 0.5px solid rgba(0,255,200,0.2);
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.06em;
+}
+.sol-btn:hover { color: #00ffc8; border-color: rgba(0,255,200,0.5); }
+
+.sol-reveal {
+  display: none;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: #00ffc8;
+  flex: 1;
+  line-height: 1.5;
+}
+.sol-reveal.vis { display: block; }
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.nav-arrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: rgba(0,255,200,0.5);
+  background: none;
+  border: 0.5px solid rgba(0,255,200,0.2);
+  border-radius: 4px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.06em;
+}
+.nav-arrow:hover { color: #00ffc8; border-color: rgba(0,255,200,0.5); }
+.nav-arrow:disabled { opacity: 0.2; cursor: default; }
+
+.nav-counter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.dot.on { background: #00ffc8; }
+.dot.suspect-dot { }
+.dot.suspect-dot.on { background: #ff503c; }
+</style>
+
+<div class="u7">
+  <div class="u7-top">
+    <div class="u7-blink"></div>
+    <span class="u7-logo">UNIT-7</span>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2)">// SYSTÈME DE CLEARANCE</span>
+    <span class="u7-badge">STATION NÉMÉSIS · 2226</span>
+  </div>
+
+  <div class="char-tabs" id="charTabs"></div>
+  <div class="screen" id="screen"></div>
+  <div class="nav-row">
+    <button class="nav-arrow" id="btnPrev" onclick="move(-1)">← PRÉC</button>
+    <span class="nav-counter" id="counter"></span>
+    <button class="nav-arrow" id="btnNext" onclick="move(1)">SUIV →</button>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+const defis = [
+  {
+    id:"U7-01", char:"Dr Bary", salle:"Salle 1", q:"Q1", diff:"easy", type:"enigme", suspect:false,
+    speech:"Bienvenue, enquêteur. Pour accéder à l'agent DR BARY, vous devez d'abord prouver votre capacité de raisonnement. Une simple énigme. Ne vous y trompez pas — les questions simples révèlent souvent les esprits les plus complexes.",
+    body:"Plus je sèche, plus je suis mouillée.\n\nQue suis-je ?",
+    sol:"Une serviette."
+  },
+  {
+    id:"U7-02", char:"Dr Bary", salle:"Salle 1", q:"Q2", diff:"hard", type:"enigme", suspect:false,
+    speech:"Accès de niveau 2 requis. Ce matin, un message chiffré a été intercepté dans les communications internes de la station. Mes protocoles m'interdisent de le décoder moi-même. C'est maintenant votre problème.",
+    body:"Décodez ce message chiffré :\n\n`FGNGVBA`\n\nProtocole ROT13 — chaque lettre est décalée de 13 rangs dans l'alphabet.\n(A→N · B→O · N→A · O→B...)\n\nQuel mot se cache derrière ce code ?",
+    sol:"STATION"
+  },
+  {
+    id:"U7-03", char:"Dr Bary", salle:"Salle 1", q:"Q3", diff:"easy", type:"gage", suspect:false,
+    speech:"Dans la Station NÉMÉSIS, la confiance ne se décrète pas. Elle se démontre. Je vous soumets une épreuve de sang-froid. Votre capacité à garder votre sérieux dans une situation absurde... m'intéresse.",
+    body:"Envoyez un vocal de 10 secondes maximum en lisant ce texte avec le plus grand sérieux possible :\n\n« Je soussigné, agent de la Station NÉMÉSIS, certifie que je n'ai absolument rien à me reprocher et que je coopère pleinement avec les autorités compétentes, à savoir Unit-7. »",
+    sol:"Gage libre — validez si le joueur tient jusqu'au bout sans sourire."
+  },
+  {
+    id:"U7-04", char:"Neb", salle:"Salle 2", q:"Q1", diff:"hard", type:"enigme", suspect:false,
+    speech:"L'accès à l'agent NEB est soumis au protocole de déduction logique. Neb elle-même ne répond qu'aux esprits capables de raisonnement structuré. Trois chercheurs. Trois spécialités. Trois niveaux. Une seule réponse correcte.",
+    body:"Trois chercheurs (Alpha, Beta, Gamma) ont chacun une spécialité différente (médecine, physique, chimie) et travaillent à des niveaux différents (1, 2, 3).\n\n— Alpha n'est pas médecin\n— Le médecin travaille au niveau 3\n— Beta travaille au niveau 1\n— Gamma n'est pas physicien\n\nQui est médecin, et à quel niveau travaille-t-il ?",
+    sol:"Gamma est médecin au niveau 3."
+  },
+  {
+    id:"U7-05", char:"Neb", salle:"Salle 2", q:"Q2", diff:"easy", type:"gage", suspect:false,
+    speech:"Protocole de connexion environnementale initié. L'agent NEB analyse en permanence les données du monde extérieur pour affiner ses prédictions. Pour la rencontrer, vous devez lui apporter une donnée du monde réel.",
+    body:"Envoyez une photo du ciel depuis l'endroit où vous vous trouvez en ce moment.\n\nLégendez-la avec la météo qu'il ferait selon vous sur la Station NÉMÉSIS ce soir.",
+    sol:"Gage libre — validez toute réponse créative cohérente avec l'univers SF."
+  },
+  {
+    id:"U7-06", char:"Neb", salle:"Salle 2", q:"Q3", diff:"hard", type:"enigme", suspect:false,
+    speech:"Analyse de séquence requise. Parmi ces données, une anomalie a été introduite dans les registres. Neb serait capable de la détecter en 0,3 secondes. Combien de temps vous faudra-t-il ?",
+    body:"Trouvez l'intrus dans cette liste :\n\n`2 / 3 / 5 / 7 / 11 / 13 / 14 / 17`\n\nQuel nombre ne respecte pas la règle des autres ?\nJustifiez votre réponse.",
+    sol:"14 — tous les autres sont des nombres premiers. 14 = 2 × 7."
+  },
+  {
+    id:"U7-07", char:"Koma", salle:"Salle 4", q:"Q1", diff:"easy", type:"enigme", suspect:false,
+    speech:"Clearance nutritionnelle requise. Koma gère chaque ressource de cette station avec une précision absolue. Pour le rencontrer, démontrez que vous êtes capable de la même rigueur. Un nombre se cache derrière ces indices.",
+    body:"Je suis un nombre à deux chiffres.\nMon chiffre des unités est le triple de mon chiffre des dizaines.\nLa somme de mes deux chiffres est 8.\n\nQui suis-je ?",
+    sol:"26 — dizaine=2, unité=6, somme=8 ✓"
+  },
+  {
+    id:"U7-08", char:"Koma", salle:"Salle 4", q:"Q2", diff:"hard", type:"enigme", suspect:false,
+    speech:"Protocole de calcul avancé initié. Les systèmes de nutrition synthétique de Koma reposent sur des séquences mathématiques complexes. Cette suite fait partie de ses algorithmes quotidiens. Trouvez la logique cachée.",
+    body:"Trouvez le terme suivant :\n\n`1 / 2 / 6 / 24 / 120 / ?`\n\nQuel est le prochain nombre de cette suite ?",
+    sol:"720 — ce sont les factorielles : 6! = 720"
+  },
+  {
+    id:"U7-09", char:"Koma", salle:"Salle 4", q:"Q3", diff:"easy", type:"gage", suspect:false,
+    speech:"Épreuve d'observation requise. Koma est un observateur du quotidien — il remarque ce que les autres ignorent. Montrez-lui que vous avez le même regard sur votre environnement immédiat.",
+    body:"Prenez en photo l'objet le plus bizarre que vous avez chez vous en ce moment.\n\nPostez-la sans aucune explication.",
+    sol:"Gage libre — toute photo acceptée. Bonus : demandez aux autres de deviner ce que c'est."
+  },
+  {
+    id:"U7-10", char:"Octo", salle:"Salle 7", q:"Q1", diff:"hard", type:"enigme", suspect:false,
+    speech:"Accès à l'infirmerie avancée — code de sécurité requis. L'agent OCTO ne reçoit personne sans vérification préalable. Ce code change chaque cycle. Déduisez-le à partir des contraintes. Vous avez une seule tentative.",
+    body:"Déduisez le code d'accès à 4 chiffres :\n\n— La somme des 4 chiffres est 10\n— Le 1er chiffre est 3\n— Le 3ème chiffre est le double du 2ème\n— Le 4ème chiffre est 1\n\nQuel est le code ?",
+    sol:"3241"
+  },
+  {
+    id:"U7-11", char:"Octo", salle:"Salle 7", q:"Q2", diff:"easy", type:"gage", suspect:false,
+    speech:"Épreuve neurologique requise. L'agent OCTO étudie les réactions du cerveau humain face à des stimuli absurdes. Votre résistance au rire dans une situation ridicule est un indicateur scientifique... précieux.",
+    body:"Envoyez un vocal en lisant ce texte sans rire :\n\n« Je confirme solennellement que je n'ai pas kidnappé le chien. Je répète : je n'ai pas kidnappé le chien. Je suis un scientifique très sérieux et les chiens ne m'intéressent pas du tout. »",
+    sol:"Gage libre — validez si le joueur tient sans rire. Faites voter les autres en cas de doute."
+  },
+  {
+    id:"U7-12", char:"Octo", salle:"Salle 7", q:"Q3", diff:"hard", type:"enigme", suspect:false,
+    speech:"Analyse de données corrompues requise. Une anomalie s'est glissée dans les registres médicaux de la station. Mes capteurs l'ont détectée mais ne peuvent pas la localiser seuls. Identifiez l'élément qui ne devrait pas être là.",
+    body:"Trouvez l'intrus dans cette séquence :\n\n`144 / 121 / 100 / 81 / 65 / 49`\n\nQuel nombre ne respecte pas la règle ?\nJustifiez votre réponse.",
+    sol:"65 — tous les autres sont des carrés parfaits. 65 ne l'est pas (8²=64, 9²=81)."
+  },
+  {
+    id:"U7-13", char:"Sierra", salle:"Salle 5", q:"Q1", diff:"easy", type:"gage", suspect:false,
+    speech:"Protocole d'imaginaire créatif initié. L'agent SIERRA a vu des choses que personne d'autre n'a vues. Pour la rencontrer, prouvez que vous avez vous aussi une vision au-delà du commun.",
+    body:"Envoyez un vocal de 20 secondes maximum où vous racontez votre journée de demain...\n\n...comme si c'était la bande-annonce d'un film d'action.",
+    sol:"Gage libre — validez si le joueur fait preuve de créativité. Bonus si des éléments SF sont présents."
+  },
+  {
+    id:"U7-14", char:"Sierra", salle:"Salle 5", q:"Q2", diff:"hard", type:"enigme", suspect:false,
+    speech:"Calcul de trajectoire requis. Sierra calcule des intersections dans l'espace-temps au quotidien. Ce problème est une version simplifiée de ses calculs de navigation. Deux vaisseaux. Une route. Un seul point de rencontre.",
+    body:"Un vaisseau quitte la base A à 14h00 à 120 km/h.\nUn second quitte la base B à 14h30 à 80 km/h, en direction opposée.\nDistance A→B : 300 km.\n\nÀ quelle heure les deux vaisseaux se croisent-ils ?",
+    sol:"15h42 — 120t + 80(t−0,5) = 300 → t = 1,7h → 14h00 + 1h42"
+  },
+  {
+    id:"U7-15", char:"Sierra", salle:"Salle 5", q:"Q3", diff:"easy", type:"enigme", suspect:false,
+    speech:"Reconnaissance de séquence requise. Les trajets de Sierra suivent toujours des progressions calculées. Retrouvez la logique de cette séquence pour prouver que vous pensez comme une pilote.",
+    body:"Trouvez le terme suivant :\n\n`3 / 6 / 12 / 24 / 48 / ?`\n\nQuel est le prochain nombre ?",
+    sol:"96 — chaque terme est multiplié par 2."
+  },
+  {
+    id:"U7-16", char:"Tac", salle:"Salle 3", q:"Q1", diff:"hard", type:"enigme", suspect:false,
+    speech:"Communication cryptée interceptée. L'agent TAC ne communique jamais en clair. Ce message a été capté dans les fréquences sécurisées de la station il y a 43 minutes. Décodez-le. C'est la seule façon d'obtenir son attention.",
+    body:"Décodez ce message en Morse :\n\n`·− / −·−· / −·−· / · / ···`\n\nA=·−  B=−···  C=−·−·  D=−··\nE=·   S=···   T=−\n\nQuel mot est transmis ?",
+    sol:"ACCES"
+  },
+  {
+    id:"U7-17", char:"Tac", salle:"Salle 3", q:"Q2", diff:"easy", type:"enigme", suspect:false,
+    speech:"Protocole d'observation requis. Tac voit ce que les autres ne voient pas — c'est ce qui fait de lui le meilleur spécialiste sécurité de la station. Cette énigme teste votre capacité à percevoir la réalité au-delà de l'évidence.",
+    body:"J'ai des villes sans maisons,\ndes forêts sans arbres,\nde l'eau sans poissons.\n\nQue suis-je ?",
+    sol:"Une carte géographique."
+  },
+  {
+    id:"U7-18", char:"Tac", salle:"Salle 3", q:"Q3", diff:"hard", type:"gage", suspect:false,
+    speech:"Épreuve de précision mnémotechnique requise. Tac mémorise tous les protocoles de sécurité dans les deux sens — littéralement. Il exige la même rigueur de quiconque veut lui parler. Une seule erreur tolérée. Pas deux.",
+    body:"Envoyez un vocal où vous récitez les 12 mois de l'année...\n\n...à l'envers.\n\nVous avez le droit à une seule erreur maximum.",
+    sol:"Décembre → Novembre → Octobre → Septembre → Août → Juillet → Juin → Mai → Avril → Mars → Février → Janvier"
+  },
+  {
+    id:"U7-19", char:"Laura", salle:"Salle 10", q:"Q1", diff:"easy", type:"enigme", suspect:true,
+    speech:"Accès à la zone restreinte 10 — initiation du protocole de clearance maximal. L'agent LAURA ne reçoit personne sans avoir évalué leur capacité de déduction. Commençons par quelque chose... d'élémentaire.",
+    body:"J'ai des mains mais pas de bras,\nun visage mais pas de tête.\n\nQue suis-je ?",
+    sol:"Une montre (ou une horloge)."
+  },
+  {
+    id:"U7-20", char:"Laura", salle:"Salle 10", q:"Q2", diff:"hard", type:"enigme", suspect:true,
+    speech:"Niveau de clearance maximum requis. L'agent LAURA a conçu NÉMÉSIS elle-même. Pour obtenir son accès, vous devez démontrer une pensée systémique. Ce carré magique est l'un de ses exercices d'échauffement quotidiens.",
+    body:"Remplissez la grille 3×3 avec les chiffres 1 à 9\n(chaque chiffre une seule fois)\npour que chaque ligne, colonne et diagonale fasse 15.\n\nContraintes :\n— Case en haut à gauche : 2\n— Case centrale : 5\n\nDonnez les 9 chiffres ligne par ligne.",
+    sol:"2 7 6 / 9 5 1 / 4 3 8"
+  },
+  {
+    id:"U7-21", char:"Laura", salle:"Salle 10", q:"Q3", diff:"hard", type:"gage", suspect:true,
+    speech:"Protocole d'identification biométrique final requis. Avant d'accéder à l'agent LAURA, votre identité doit être enregistrée dans les archives permanentes de la station. Soumettez votre photo de badge officiel. Fond uni. Regard sérieux. Nom de code obligatoire.",
+    body:"Prenez une photo de vous avec l'air le plus sérieux possible, comme si c'était votre photo de badge officiel de la Station NÉMÉSIS.\n\nConditions :\n— Fond uni obligatoire\n— Regard face caméra\n— Votre nom de code d'agent inscrit sur la photo",
+    sol:"Gage libre — fond uni + nom de code requis. Bonus si l'ambiance SF est respectée."
+  }
+];
+
+const chars = [...new Set(defis.map(d=>d.char))];
+let filtered = defis;
+let idx = 0;
+let activeChar = "tous";
+
+function buildTabs() {
+  const el = document.getElementById('charTabs');
+  const items = [{key:"tous",label:"TOUS",suspect:false}].concat(
+    chars.map(c => ({key:c, label:c.toUpperCase(), suspect: defis.find(d=>d.char===c)?.suspect||false}))
+  );
+  el.innerHTML = items.map(i=>
+    `<button class="ctab${i.suspect?' suspect':''}${activeChar===i.key?' on':''}" onclick="setChar('${i.key}')">${i.label}</button>`
+  ).join('');
+}
+
+function setChar(k) {
+  activeChar = k;
+  filtered = k==="tous" ? defis : defis.filter(d=>d.char===k);
+  idx = 0;
+  buildTabs();
+  render();
+}
+
+function move(dir) {
+  idx = Math.max(0, Math.min(filtered.length-1, idx+dir));
+  render();
+}
+
+function toggleSol(id, btn) {
+  const el = document.getElementById('sol-'+id);
+  el.classList.toggle('vis');
+  btn.textContent = el.classList.contains('vis') ? '▼ MASQUER' : '▶ SOLUTION MJ';
+}
+
+function render() {
+  const d = filtered[idx];
+  if (!d) return;
+  const qColors = {Q1:'stag-q1',Q2:'stag-q2',Q3:'stag-q3'};
+  const accentColor = d.suspect ? '#ff503c' : '#00ffc8';
+
+  document.getElementById('screen').style.borderColor = d.suspect ? 'rgba(255,80,60,0.35)' : 'rgba(0,255,200,0.25)';
+
+  document.getElementById('screen').innerHTML = `
+    <div class="screen-head" style="background:${d.suspect?'rgba(255,80,60,0.06)':'rgba(0,255,200,0.06)'}; border-bottom-color:${d.suspect?'rgba(255,80,60,0.15)':'rgba(0,255,200,0.15)'}">
+      <span class="screen-id">${d.id}</span>
+      <span class="screen-char">${d.char.toUpperCase()} · ${d.salle}</span>
+      <div class="screen-tags">
+        <span class="stag ${qColors[d.q]}">${d.q}</span>
+        <span class="stag ${d.diff==='easy'?'stag-easy':'stag-hard'}">${d.diff==='easy'?'FACILE':'DIFFICILE'}</span>
+        <span class="stag ${d.type==='enigme'?'stag-enig':'stag-gage'}">${d.type==='enigme'?'ÉNIGME':'GAGE'}</span>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div class="unit-speech" style="border-left-color:${accentColor}40">
+        <p class="unit-speech-label" style="color:${accentColor}60">▶ UNIT-7 dit</p>
+        <p class="unit-speech-text">"${d.speech}"</p>
+      </div>
+      <div class="challenge-box">
+        <p class="challenge-label">// DÉFI DE CLEARANCE</p>
+        <p class="challenge-text">${d.body.replace(/\n/g,'<br>').replace(/`([^`]+)`/g,'<code>$1</code>')}</p>
+      </div>
+    </div>
+    <div class="screen-foot">
+      <button class="sol-btn" onclick="toggleSol('${d.id}',this)">▶ SOLUTION MJ</button>
+      <div class="sol-reveal" id="sol-${d.id}">// ${d.sol}</div>
+    </div>
+  `;
+
+  document.getElementById('counter').textContent = `${idx+1} / ${filtered.length}`;
+  document.getElementById('btnPrev').disabled = idx===0;
+  document.getElementById('btnNext').disabled = idx===filtered.length-1;
+
+  const dotsEl = document.getElementById('dots');
+  dotsEl.innerHTML = filtered.map((dd,i)=>
+    `<div class="dot${dd.suspect?' suspect-dot':''}${i===idx?' on':''}" onclick="jumpTo(${i})" title="${dd.id}"></div>`
+  ).join('');
+}
+
+function jumpTo(i) { idx=i; render(); }
+
+buildTabs();
+render();
+</script>
